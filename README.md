@@ -1,2 +1,2 @@
-# doc-Shrike_lite
-Shrike-lite 開発手順書
+# Shrike-lite 開発手順書
+
