@@ -12,7 +12,7 @@
 |---|---|
 | 対象ボード | Shrike-lite |
 | 開発言語 | Python (MicroPython) |
-| IDE・ツール | Thonny 5.0.1  TeraTerm 5.7.1 |
+| IDE・ツール | Thonny 5.0.1 |
 | SDK・ライブラリ | Shrike MicroPython v1.26.0-preview |
 | 開発PCのOS | Windows 11 26H2 |
 | 最終検証日 | (yyyy/mm/dd) |
@@ -101,38 +101,7 @@ FPGAなどのデジタル回路を設計するために使用するハードウ�
     > 確認：上部のタブが日本語で表示されていると成功  
     ![設定確認画面](../images/S1_LanguageSetting.png)  
 
-### 1.3 TeraTermのインストール
-本節では、PC とマイコンをシリアル通信で接続し、データの送受信や確認をするために使用する TeraTerm のインストール手順を記載する。
-1. 下記のリンクより、 TerTerm 公式 GitHub にアクセスする。  
-[TerTerm 公式 GitHub](https://github.com/TeraTermProject/teraterm/releases)
-1. TeraTerm 5.7.1の Assets から **teraterm-5.7.1-x64.exe** をダウンロードする。  
-![TeraTermダウンロード画面](../images/S1_TeraTermDownLoad.png)  
-1. ダウンロードした**teraterm-5.7.1-x64.exe** をダブルクリックする。
-![TeraTermダウンロード選択画面](../images/S1_TeraTermDownLoadSelect.png)  
-1. 「インストールモードの選択」画面が開かれ、**現在のユーザー用にインストール(M)(推奨)** を押下する。  
-![インストールモードの選択画面](../images/S1_TeraTermInstallMode.png)  
-1. 「セットアップに使用する言語の選択」画面が開かれ、インストール中に利用する言語を**日本語**を選択する。
-![セットアップ言語選択画面](../images/S1_SetupLanguageSelect.png)  
-1. 「使用許諾契約書の同意」画面が開かれ、同意する(A)を押下する。  
-![使用許諾契約書画面](../images/S1_TeraTermLicense.png)  
-1. 次へ(N)を押下する。  
-![使用許諾契約書次へ画面](../images/S1_TeraTermLicenseNext.png)    
-1. 「インストール先の指定」画面が開かれ、次へ(N)を押下する。  
-![インストール先指定画面](../images/S1_TeraTermInstallLocate.png)  
-1. 「コンポーネントの選択」画面が開かれ、次へ(N)を押下する。  
-![コンポーネントの選択画面](../images/S1_TeraTermComponent.png)  
-1. 「言語の選択」画面が開かれ、日本語(J)を押下する。  
-![言語の選択画面](../images/S1_TeraTermLangugae.png)  
-1. 「スタートメニューフォルダーの指定」画面が開かれ、次へ(N)を押下する。  
-![スタートメニューフォルダーの指定画面](../images/S1_TeraTermStartMenu.png)  
-1. 「追加タスクの選択」画面が開かれ、次へ(N)を押下する。  
-![追加タスクの選択画面](../images/S1_TeraTermAddTask.png)  
-1. 「インストールの準備完了」画面が開かれ、インストール(I)を押下する。  
-![インストール準備完了](../images/S1_TeraTermSetupOK.png)  
-    >確認：TeraTerm セットアップウィザードの完了が表示されればインストール成功  
-    ![インストール完了画面](../images/S1_TeraTermInstallOK.png)  
-
-### 1.4 ボードの接続
+### 1.3 ボードの接続
 本節では、 Shrike-lite と PC が USB 経由で正常に接続されていることを確認するため、  
 デバイスマネージャーを使用して PC が Shrike-lite を認識しているか確認する方法を記載する。
 1. Shrike-lite を PC に USB 接続する。  
@@ -143,9 +112,9 @@ FPGAなどのデジタル回路を設計するために使用するハードウ�
 ![接続前画面](../images/S1_COMLPTBefore.png)  
 接続後  
 ![接続後画面](../images/S1_COMLPT.png)  
-    > 確認：接続後に表示されたCOMポートが表示されれば成功
+    > 確認：Shrike-lite に対応する COM ポートが表示されていれば接続成功。
 
-### 1.5 Shrike 専用 MicroPython の書き込み
+### 1.4 Shrike 専用 MicroPython の書き込み
 本節では、 Shrike-lite のマイコンで MicroPython のプログラムを実行するには、マイコン側に MicroPython の実行環境が必要となるため、   Shrike-lite 専用の MicroPython の書き込みを行う方法を記載する。  
 なお、本章では、2026年11月18日時点の最新版である **Shrike MicroPython Firmware v1.0.0** を使用する。  
 1. Shrike_lite の **BOOTボタン** を押しながらPCにUSB接続を行う。  
@@ -200,6 +169,23 @@ FPGAなどのデジタル回路を設計するために使用するハードウ�
 | 使用するツール | 接続方法 |
 | ------ | ------ |
 | Thonny | USB接続 |
+
+#### 接続手順
+1. Shrike-liteとPCをUSBケーブルで接続する。  
+1. Thonnyを起動する。  
+1. 上部のタブから**ツール**を押下する。  
+![ツール押下画面](../images/S1_ThonnyTool.png)  
+1. 開かれた項目から**オプション**を押下する。  
+![オプション押下画面](../images/S1_ThonnyOption.png)  
+1. Thonnyオプションの**インタプリタ**を押下する。  
+![インタプリタ押下画面](../images/S1_ThonnyInterpreter.png)  
+1. Thonnyのインタプリタが「MicroPython (Raspberry Pi Pico)」に設定されていることを確認する。  
+![インタプリタ選択画面](../images/S1_OptionSelectCode.png)  
+1. 接続先のポートが　Shrike-lite　に対応する COM ポートになっていることを確認する。  
+対応する COM ポートの確認は[1.3 ボードの接続](#13-ボードの接続)を参照。
+![ポート選択画面](../images/S1_PortSelect.png)
+1. Thonnyのシェルに「>>>」が表示されていることを確認できれば完了。  
+
 
 ### 2.2 通信設定(ポート、ボーレートなど)
 本節では、 Shrike-lite と PC 間の通信に使用する設定項目について説明する。  
