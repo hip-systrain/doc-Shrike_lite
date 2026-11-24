@@ -177,7 +177,7 @@ FPGAなどのデジタル回路を設計するために使用するハードウ�
 ![ツール押下画面](../images/S1_ThonnyTool.png)  
 1. 開かれた項目から**オプション**を押下する。  
 ![オプション押下画面](../images/S1_ThonnyOption.png)  
-1. Thonnyオプションの**インタプリタ**を押下する。  
+1. Thonny オプションの**インタプリタ**を押下する。  
 ![インタプリタ押下画面](../images/S1_ThonnyInterpreter.png)  
 1. Thonnyのインタプリタが「MicroPython (Raspberry Pi Pico)」に設定されていることを確認する。  
 ![インタプリタ選択画面](../images/S1_OptionSelectCode.png)  
@@ -200,7 +200,7 @@ REPL を使用する際は、 Thonny のインタプリタと接続先の COM �
 
 ### 2.3 動作確認
 本節では、 REPL を使用して Shrike-lite にコマンドを送信し、正常に実行されることを確認する。  
-Thonny の REPL に以下のコマンドを入力する。  
+Thonny のシェルに以下のコマンドを入力する。  
 ```python
 print("Hello Shrike-lite")
 ```
