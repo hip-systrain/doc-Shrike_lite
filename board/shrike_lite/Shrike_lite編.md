@@ -90,6 +90,119 @@
 
 - 
 
+## 9. FPGAの開発環境とプロジェクト作成
+　本章では、 Shrike-lite に内蔵されている FPGA を開発する環境を構築する手順と、 Shrike-lite のピン割り当て、 FPGA に関する基礎知識について説明する。
+
+### 9.1 FPGAの基礎
+- 概要
+  
+  　FPGA(Field Programmable Gate Array) は使用目的に合わせて内部の電子回路を自由に構成できる半導体である。通常の集積回路（IC）は製造時点で内部の回路構成や機能が決まっている。しかし FPGA はユーザーが設計した回路情報を書き込むことで、内部の論理回路の構成を変更できる。
+
+- 特徴
+  - 再構成可能な論理回路
+  - 並列処理が得意
+  - 回路構成を編集することで機能を変更できる
+  - Verilog や VHDL などのハードウェア記述言語を用いて開発する
+
+- 内部構造
+
+  FPGA の内部には多数の小さなロジックブロックや配線が並んでいる。
+
+  ```mermaid
+  flowchart TB
+    IN["外部入力<br/>センサー・スイッチ"]
+
+    subgraph FPGA["FPGA"]
+        direction TB
+
+        subgraph COL1["入力列"]
+            direction TB
+            IN1["IOB<br/>入力ブロック"]
+            IN2["IOB<br/>入力ブロック"]
+            IN3["IOB<br/>入力ブロック"]
+        end
+
+        subgraph COL2["論理回路列"]
+            direction TB
+            C["LUT"]
+            D["LUT"]
+            E["LUT"]
+            F["LUT"]
+            G["LUT"]
+            H["LUT"]
+            I["LUT"]
+            J["LUT"]
+            K["LUT"]
+        end
+
+        subgraph COL3["出力列"]
+            direction TB
+            OUT1["IOB<br/>出力ブロック"]
+            OUT2["IOB<br/>出力ブロック"]
+            OUT3["IOB<br/>出力ブロック"]
+        end
+
+        IN1 --> C
+        IN2 --> D
+        IN3 --> E
+        C --> F
+        D --> G
+        E --> H
+        F --> I
+        G --> J
+        H --> K
+        I --> OUT1
+        J --> OUT2
+        K --> OUT3
+    end
+
+    OUT["外部出力<br/>制御信号・LED"]
+
+    IN --> IN1
+    IN --> IN2
+    IN --> IN3
+    OUT1 --> OUT
+    OUT2 --> OUT
+    OUT3 --> OUT
+
+    style FPGA fill:#f8fafc,stroke:#64748b,color:#111
+    style COL1 fill:#e3f2fd,stroke:#2563eb,color:#111
+    style COL2 fill:#fff8e1,stroke:#d69e00,color:#111
+    style COL3 fill:#e3f2fd,stroke:#2563eb,color:#111
+    style IN1 fill:#bfdbfe,stroke:#2563eb,color:#111
+    style IN2 fill:#bfdbfe,stroke:#2563eb,color:#111
+    style IN3 fill:#bfdbfe,stroke:#2563eb,color:#111
+    style OUT1 fill:#bfdbfe,stroke:#2563eb,color:#111
+    style OUT2 fill:#bfdbfe,stroke:#2563eb,color:#111
+    style OUT3 fill:#bfdbfe,stroke:#2563eb,color:#111
+    style C fill:#fde68a,stroke:#d69e00,color:#111
+    style D fill:#fde68a,stroke:#d69e00,color:#111
+    style E fill:#fde68a,stroke:#d69e00,color:#111
+    style F fill:#fde68a,stroke:#d69e00,color:#111
+    style G fill:#fde68a,stroke:#d69e00,color:#111
+    style H fill:#fde68a,stroke:#d69e00,color:#111
+    style I fill:#fde68a,stroke:#d69e00,color:#111
+    style J fill:#fde68a,stroke:#d69e00,color:#111
+    style K fill:#fde68a,stroke:#d69e00,color:#111
+  ```
+
+  - LUT
+  - 配線
+  - 入出力ブロック
+
+
+### 9.2 Shrike-liteのピン割り当て
+
+### 9.3 Go Configure Software Hubの入手とインストール
+　Go Configure Software Hub は FPGA に搭載する回路データを開発・構成・シミュレーションするための GUI 開発環境である。
+
+### 9.4 SLG47910のプロジェクトの作り方
+
+
+
+## 10. FPGAの設計とシミュレーション
+
+
 <!-- ボード独自の追加章がある場合は、ここから「## 9. 〜」として追加する -->
 
 <!--
