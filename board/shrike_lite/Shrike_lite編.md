@@ -68,7 +68,8 @@
 ### 4.4 題材4:タイマ割込み
 
 ## 5. コーディング・ビルド・書込み(FreeRTOS)
-Shrike-liteはFreeRTOS(リアルタイムOS)が非搭載となるため本章についての記載は省略する。
+Shrike-liteはFreeRTOS(リアルタイムOS)が非搭載となる。  
+タスクを用いた操作は行わないため本章についての記載は省略する。
 ### 5.1 FreeRTOSの導入・設定
 ### 5.2 題材5:複数タスク
 ### 5.3 題材6:タスク間通信
@@ -143,14 +144,24 @@ Pythonコード内で使用する変数やポートの確認方法について�
     from machine import Pin
     Pin(4)
     ```    
+    出力の"mode="にPinがIN/OUTのどちらに使われているか表示される。
     ![Pin設定の確認](../images/S3_CheckPin.png) 　
 - PinのH/Lを確認は以下を入力する。
      ```python
     Pin(4).value()
     ``` 
-    ![Pin設定の確認](../images/S3_CheckPin2.png) 　
-
-
+    ![Pin状態の確認](../images/S3_CheckPin2.png) 　
+- Thonnyの **現在のスクリプトを実行** から実行させた場合、Thonny上から変数の値を確認できる。
+1. メニューバーから **表示** を選択する。  
+![メニュー表示](../images/S3_Menu_hyoji.png) 　
+1. 一覧から **変数**にチェックを入れる。  
+![表示一覧](../images/S3_Menu_hyoji_1ran.png)
+1. 右側に現在使われている変数の一覧が表示される。    
+![変数表示](../images/S3_hyoji_hensu.png)
+#### FPGA側
+FPGA内で使用される変数やPINの状態を調べる場合、シミュレーション実行結果の波形から指定したMaker(画像内のピンクの縦線)の位置での各状態をSignalsから確認できる。  
+![変数表示](../images/S3_GTKW2.png)  
+![変数表示](../images/S3_GTKW3.png)  
 
 ## 7. トラブルシューティング
 
