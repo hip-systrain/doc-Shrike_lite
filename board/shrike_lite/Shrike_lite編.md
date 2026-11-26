@@ -94,7 +94,7 @@ Thonny を使用して、 Shrike-Lite で実行するPythonプログラムを作
 ![表示押下画面](../imgaes/S1_ThonnyDisplay.png)  
 1. 開かれた項目からファイルを押下する  
 ![ファイル押下画面](../imgaes/S1_ThonnyFile.png)  
-    >確認：左記にファイル項目が表示されれば成功
+    >確認：左記にファイル項目が表示されれば成功  
     ![ファイル設定確認画面](../imgaes/S1_ThonnyFileSetting.png)  
 1. 接続先のポートが　Shrike-lite　に対応するCOMポートになっていることを確認する。  
    接続方法は[2.1 使用するツールと接続方法](#21-使用するツールと接続方法)を参照  
