@@ -65,8 +65,9 @@
 本節では、Shrike-lite 基板上の LED を使用して、一定間隔で点灯と消灯を繰り返すプログラムを作成する。  
 なお、 Shrike-lite 基板上にある LED を使用するため、配線は不要とする。  
 1. Shrike-lite をPCにUSB接続する。  
-1. Thonny を起動する。
-1. [3.4 main.py の自動実行](#34-mainpy-の自動実行)で作成した、ボード上の main.py を開く。
+1. Thonny を起動する。  
+1. [3.4 main.py の自動実行](#34-mainpy-の自動実行)で作成した、ボード上の main.py を開く。  
+![ボード上のmain画像](../images/S1_Boardmain.png)  
 1. 次に記載するプログラムを main.py に記述する。  
     ```
     from machine import Pin
@@ -82,7 +83,7 @@
         led.value(0)       # LED消灯
         time.sleep(0.5)    # 0.5秒待機
     ```
-1. main.py を Shrike-lite のボード上に保存する。  
+1. 記述した main.py を Shrike-lite のボード上に保存する。  
 1. Thonny 下部のシェルで Ctrl + D を押下し、ボードの再起動をする。  
     >確認：Shrike-lite 基板上の LED が0.5秒間隔で点灯・消灯を繰り返すことを確認する。  
     >注意：プログラムを停止する場合は、 Thonny 下部のシェルをクリックし、Ctrl + C を押下する。 
@@ -90,11 +91,12 @@
 ### 4.2 題材2:ボタン入力
 本節では、Shrike-lite にボタンを接続し、ボタンを押している間だけ基板上の LED が点灯するプログラムを作成する。  
 1. タクトスイッチとマイコンを接続するため、次の図のように配線する。  
-![タクトスイッチ配線図](../shrike_lite/images/S1_ButtonLine.png)  
+![タクトスイッチ配線図](../images/S1_ButtonLine.png)  
 1. Shrike-lite をPCにUSB接続する。  
-1. Thonny を起動する。
-1. [3.4 main.py の自動実行](#34-mainpy-の自動実行)で作成した、ボード上の main.py を開く。
-1. 次に記載しているプログラムを入力する。  
+1. Thonny を起動する。  
+1. [3.4 main.py の自動実行](#34-mainpy-の自動実行)で作成した、ボード上の main.py を開く。  
+![ボード上のmain画像](../images/S1_Boardmain.png)  
+1. 次に記載しているプログラムを記述する。  
     ```
     from machine import Pin
     import time
@@ -117,19 +119,20 @@
         # チャタリングによる誤検出を抑えるため50ms待機
         time.sleep(0.05)
     ```
-1. main.py を Shrike-lite のボード上に保存する。  
+1. 記述した main.py を Shrike-lite のボード上に保存する。  
 1. Thonny 下部のシェルで Ctrl + D を押下し、ボードの再起動をする。  
-    >確認：ボタンを押下している間、 Shrike-lite 基板上の LED が点灯していることを確認する。
-    >注意：プログラムを停止する場合は、 Thonny 下部のシェルをクリックし、Ctrl + C を押下する。 
+    >確認：ボタンを押下している間、 Shrike-lite 基板上の LED が点灯していることを確認する。  
+    >注意：プログラムを停止する場合は、 Thonny 下部のシェルをクリックし、Ctrl + C を押下する。  
 
 ### 4.3 題材3:UART出力
-ボタンの押下回数を MicroPython の print() を Thonny のシェルに表示するプログラムの作成を行う。
+ボタンの押下回数を MicroPython の print() を Thonny のシェルに表示するプログラムの作成を行う。  
 1. タクトスイッチとマイコンを接続するため、次の図のように配線する。  
-![タクトスイッチ配線図](../shrike_lite/images/S1_ButtonLine.png)  
+![タクトスイッチ配線図](../images/S1_ButtonLine.png)  
 1. Shrike-lite をPCにUSB接続する。  
 1. Thonny を起動する。  
 1. [3.4 main.py の自動実行](#34-mainpy-の自動実行)で作成した、ボード上の main.py を開く。  
-1. 次に記載しているプログラムを入力する。  
+![ボード上のmain画像](../images/S1_Boardmain.png)  
+1. 次に記載しているプログラムを記述する。  
     ```
     from machine import Pin
     import time
@@ -154,7 +157,7 @@
         # 現在のボタンの状態を次回の判定用に保存
         before = current
     ```
-1. main.py を Shrike-lite のボード上に保存する。  
+1. 記述した main.py を Shrike-lite のボード上に保存する。  
 1. Thonny 下部のシェルで Ctrl + D を押下し、ボードの再起動をする。  
     >確認： Thonny のシェルにボタンを押下した回数が表示されることを確認する。  
     >注意：プログラムを停止する場合は、 Thonny 下部のシェルをクリックし、Ctrl + C を押下する。  
@@ -165,7 +168,8 @@ Shrike-lite 基板上にあるLEDを使用するため、配線は不要。
 1. Shrike-lite をPCにUSB接続する。  
 1. Thonny を起動する。  
 1. [3.4 main.py の自動実行](#34-mainpy-の自動実行)で作成した、ボード上の main.py を開く。  
-1. 次に記載しているプログラムを入力する。  
+![ボード上のmain画像](../images/S1_Boardmain.png)  
+1. 次に記載しているプログラムを記述する。  
     ```
     from machine import Pin, Timer
 
@@ -183,10 +187,10 @@ Shrike-lite 基板上にあるLEDを使用するため、配線は不要。
     tim.init(period=1000, mode=Timer.PERIODIC,
             callback=timer_callback)
     ```
-1. main.py を Shrike-lite のボード上に保存する。  
+1. 記述した main.py を Shrike-lite のボード上に保存する。  
 1. Thonny 下部のシェルで Ctrl + D を押下し、ボードの再起動をする。  
     >確認：プログラムを実行し、 Shrike-lite 基板上の LED が1秒間隔で点灯・消灯を繰り返すことを確認する。  
-    >注意：本プログラムは、タイマ割込みによってLEDの点滅を制御する。プログラムの実行終了後もタイマ割込みが継続するため、通常のプログラムのようにCtrl + Cで停止することはできない。  
+    >注意：本プログラムは、タイマ割込みによってLEDの点滅を制御するため、プログラムの実行終了後もタイマ割込みが継続する。そのため、通常のプログラムのようにCtrl + Cで停止することはできない。  
 
 ## 5. コーディング・ビルド・書込み(FreeRTOS)
 
