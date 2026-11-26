@@ -174,7 +174,7 @@ FPGA内で使用される変数やPINの状態を調べる場合、シミュレ�
 | | | |
 
 ## 8. 参考資料
-
+- Shrike-lite回路図　Shrike-lite_Schematics.pdf
 - 
 
 <!-- ボード独自の追加章がある場合は、ここから「## 9. 〜」として追加する -->
@@ -217,87 +217,87 @@ Shrike-liteではマイコン側のGPIO14,15とFPGA側のGPIO18,17は信号線�
 1. [3.4 main.py の自動実行](#34-mainpy-の自動実行)で作成した、ボード上の main.py を開く。  
 ![ボード上のmain画像](../images/S1_Boardmain.png)  
 1. 次に記載するプログラムを main.pyに記述する。  
-  ```
-import shrike
-from machine import Pin
-import time
+    ```
+    import shrike
+    from machine import Pin
+    import time
 
-Pin(6,Pin.IN,Pin.PULL_UP) #　ボタン入力設定
-Pin(15,Pin.OUT) # FPGA側への信号
+    Pin(6,Pin.IN,Pin.PULL_UP) #　ボタン入力設定
+    Pin(15,Pin.OUT) # FPGA側への信号
 
-last = 0
-logh = 0
-logl = 0
+    last = 0
+    logh = 0
+    logl = 0
 
-while True:
-    if Pin(6).value() == 1: # ボタン押されていない
-        logl = 0
-        if last == 1: # 現在押し確定
-            logh = logh + 1
-            if logh > 10: # 10回連続離されている
-                last = 0 # 離し確定
-                Pin(15).off() #FPGAへOFFを出力
-                time.sleep_ms(10)
-                
-    elif Pin(6).value() == 0: # ボタン押されている
-        logh = 0
-        if last == 0: # 現在離し確定
-            logl = logl + 1
-            if logl > 10: # 10回連続押されている
-                last = 1 # 押し確定
-                Pin(15).on() #FPGAへONを出力
-                time.sleep_ms(10)
-  ```
-1. 次に記載するプログラムを Verilogのmain.vに記述する。
-```
-(* top *) module main #(
-  parameter MAX_COUNT = 50_000_000 //点滅速度基準値
-)(
-  (* iopad_external_pin, clkbuf_inhibit *) input clk, //OSC_CLK
-  (* iopad_external_pin *) input btn,                 //GPIO17_IN
-  (* iopad_external_pin *) output btn_en,             //GPIO17_OE
-  (* iopad_external_pin *) output LED,                //GPIO16_OUT
-  (* iopad_external_pin *) output LED_en,             //GPIO16_OE
-  (* iopad_external_pin *) output clk_en              //OCS_EN
-  );
+    while True:
+        if Pin(6).value() == 1: # ボタン押されていない
+            logl = 0
+            if last == 1: # 現在押し確定
+                logh = logh + 1
+                if logh > 10: # 10回連続離されている
+                    last = 0 # 離し確定
+                    Pin(15).off() #FPGAへOFFを出力
+                    time.sleep_ms(10)
+                    
+        elif Pin(6).value() == 0: # ボタン押されている
+            logh = 0
+            if last == 0: # 現在離し確定
+                logl = logl + 1
+                if logl > 10: # 10回連続押されている
+                    last = 1 # 押し確定
+                    Pin(15).on() #FPGAへONを出力
+                    time.sleep_ms(10)
+    ```  
+1. 次に記載するプログラムを Verilogのmain.vに記述する。  
+    ```
+    (* top *) module main #(
+        parameter MAX_COUNT = 50_000_000 //点滅速度基準値
+      )(
+        (* iopad_external_pin, clkbuf_inhibit *) input clk, //OSC_CLK
+        (* iopad_external_pin *) input btn,                 //GPIO17_IN
+        (* iopad_external_pin *) output btn_en,             //GPIO17_OE
+        (* iopad_external_pin *) output LED,                //GPIO16_OUT
+        (* iopad_external_pin *) output LED_en,             //GPIO16_OE
+        (* iopad_external_pin *) output clk_en              //OCS_EN
+        );
 
-  reg [31:0] counter = 32'd0; //タイマ累積カウンタ
-  reg LED_status = 1'b0;      //LEDの点灯状態
-  reg lastbtn= 1'b0;          //マイコンからの前回の入力信号
-  reg [7:0]spd = 8'd0;        //点滅速度 0~6段階
+        reg [31:0] counter = 32'd0; //タイマ累積カウンタ
+        reg LED_status = 1'b0;      //LEDの点灯状態
+        reg lastbtn= 1'b0;          //マイコンからの前回の入力信号
+        reg [7:0]spd = 8'd0;        //点滅速度 0~6段階
 
-  assign LED_en = 1'b1;       //出力設定
-  assign clk_en = 1'b1;       //クロック許可
-  assign btn_en = 1'b0;       //入力設定
-  
-  always @ (posedge clk) begin
-    if((btn == 1'b1)&&(lastbtn == 1'b0)) begin //入力信号立ち上がり
-      spd = spd + 8'd1;       //速度UP
-      if(spd > 8'd6) begin    //6段階目以上であれば0に戻す
-        spd = 8'd0;
-      end
-      lastbtn = btn;          //前回の入力信号を更新
-    end
-    else if(btn == 1'b0) begin  //入力信号がOFF
-      lastbtn = btn;          //前回の入力信号を更新
-    end
-    counter <= counter + 1'b1; //累積カウンタを更新
+        assign LED_en = 1'b1;       //出力設定
+        assign clk_en = 1'b1;       //クロック許可
+        assign btn_en = 1'b0;       //入力設定
+        
+        always @ (posedge clk) begin
+          if((btn == 1'b1)&&(lastbtn == 1'b0)) begin //入力信号立ち上がり
+            spd = spd + 8'd1;       //速度UP
+            if(spd > 8'd6) begin    //6段階目以上であれば0に戻す
+              spd = 8'd0;
+            end
+            lastbtn = btn;          //前回の入力信号を更新
+          end
+          else if(btn == 1'b0) begin  //入力信号がOFF
+            lastbtn = btn;          //前回の入力信号を更新
+          end
+          counter <= counter + 1'b1; //累積カウンタを更新
 
-    if (counter > (50_000_000 >> spd)) begin //累積カウンタが点滅速度の基準値を超えている
-      LED_status <= !LED_status;  //LED点灯状態を反転
-      counter <= 32'b0;       //累積カウンタをクリア
-    end
-  end
+          if (counter > (50_000_000 >> spd)) begin //累積カウンタが点滅速度の基準値を超えている
+            LED_status <= !LED_status;  //LED点灯状態を反転
+            counter <= 32'b0;       //累積カウンタをクリア
+          end
+        end
 
-  assign LED = LED_status;
+        assign LED = LED_status;
 
-endmodule 
-```  
-1.I/O Planner には以下の様に設定する。
+      endmodule 
+    ```  
+1. I/O Planner には以下の様に設定する。  
 ![変数表示](../images/S3_IOPanel.png)   
-1.記述したコードでのbinファイルを作成する。
-1.作成したbinファイルはShrike-lite上へ移動し、REPLから[shrike.flash("***.bin")]でFPGAへ書き込む。
-1.マイコンのスクリプトを実行する。
+1. 記述したコードでのbinファイルを作成する。  
+1. 作成したbinファイルはShrike-lite上へ移動し、REPLから[shrike.flash("***.bin")]でFPGAへ書き込む。  
+1. マイコンのスクリプトを実行する。  
 
 <!--
   記述ルール(書きぶりを全章でそろえる)
