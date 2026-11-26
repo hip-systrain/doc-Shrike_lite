@@ -15,13 +15,13 @@
 | IDE・ツール | Thonny 5.0.1 |
 | SDK・ライブラリ | Shrike MicroPython v1.26.0-preview |
 | 開発PCのOS | Windows 11 26H2 |
-| 最終検証日 | (yyyy/mm/dd) |
+| 最終検証日 | (2026/11/25) |
 
 ## 改版履歴
 
 | 版 | 日付 | 担当者 | 内容 |
 |---|---|---|---|
-| 0.1 | (yyyy/mm/dd) | | 新規作成 |
+| 0.1 | (2026/11/25) | 藤井 | 新規作成 |
 
 ---
 
@@ -103,7 +103,7 @@ FPGAなどのデジタル回路を設計するために使用するハードウ�
 
 ### 1.3 ボードの接続
 本節では、 Shrike-lite と PC が USB 経由で正常に接続されていることを確認するため、  
-デバイスマネージャーを使用して PC が Shrike-lite を認識しているか確認する方法を記載する。
+デバイスマネージャーを使用して PC が Shrike-lite を認識しているか確認する方法を記載する。  
 1. Shrike-lite を PC に USB 接続する。  
 1. PC が Shrike-lite を認識しているか、デバイスマネージャーを開いて確認する。  
 ![デバイスマネージャー検索画面](../images/S1_DeviceManager.png)  
@@ -112,7 +112,7 @@ FPGAなどのデジタル回路を設計するために使用するハードウ�
 ![接続前画面](../images/S1_COMLPTBefore.png)  
 接続後  
 ![接続後画面](../images/S1_COMLPT.png)  
-    > 確認：Shrike-lite に対応する COM ポートが表示されていれば接続成功。
+    > 確認：Shrike-lite に対応する COM ポートが表示されていれば接続成功。  
 
 ### 1.4 Shrike 専用 MicroPython の書き込み
 本節では、 Shrike-lite のマイコンで MicroPython のプログラムを実行するには、マイコン側に MicroPython の実行環境が必要となるため、   Shrike-lite 専用の MicroPython の書き込みを行う方法を記載する。  
@@ -127,19 +127,21 @@ FPGAなどのデジタル回路を設計するために使用するハードウ�
 1. ダウンロードした Shrike-lite-micropython.uf2 を **RPI-RP2** にコピーする。  
 ![RPI-RP2コピー画面](../images/S1_MicroPythonCoppy.png)  
 注意：コピーが完了すると、RPI-RP2 のドライブが自動的に切断されるため、エクスプローラーが閉じられるのは正常の動きです。
-1. Thonny を起動する。
+1. Thonny を起動する。  
 1. 上部のタブから**ツール**を押下する。  
 ![ツール押下画面](../images/S1_ThonnyTool.png)  
 1. 開かれた項目から**オプション**を押下する。  
 ![オプション押下画面](../images/S1_ThonnyOption.png)  
 1. Thonnyオプションの**インタプリタ**を押下する。  
 ![インタプリタ押下画面](../images/S1_ThonnyInterpreter.png)  
-1. 「どのインタプリタを使用してコードを実行しますか？」を **MicroPython(Raspberry Pi Pico)** を選択する。  
+1. 「どのインタプリタを使用してコードを実行しますか？」を **MicroPython(RP2040)** を選択する。  
 ![インタプリタ選択画面](../images/S1_OptionSelectCode.png)  
 1. 「ポートまたは WebREPL」を[1.3 ボードの接続](#13-ボードの接続)で確認した**Shrike-lite に割り当てられた COM ポート**を選択する。  
 ![ポート選択画面](../images/S1_PortSelect.png)  
 1. **OK** を押下する。  
 ![オプションOK押下画面](../images/S1_OptionOK.png)  
+    >確認：右下が **Micro Python(RP2040)・(選択したポート番号)**になっていれば設定成功です。  
+    ![インタプリタ設定確認画面](../images/S1_interpreterSetCheck.png)  
 1. 上部のタブから**ファイル**を押下する。  
 ![ファイル押下画面](../images/S1_FileSelect.png)  
 1. **新規ファイル**を押下する。  
@@ -173,13 +175,13 @@ FPGAなどのデジタル回路を設計するために使用するハードウ�
 ![オプション押下画面](../images/S1_ThonnyOption.png)  
 1. Thonny オプションの**インタプリタ**を押下する。  
 ![インタプリタ押下画面](../images/S1_ThonnyInterpreter.png)  
-1. Thonnyのインタプリタが「MicroPython (Raspberry Pi Pico)」に設定されていることを確認する。  
+1. Thonnyのインタプリタが「MicroPython (RP2040)」に設定されていることを確認する。  
 ![インタプリタ選択画面](../images/S1_OptionSelectCode.png)  
 1. 接続先のポートが　Shrike-lite　に対応する COM ポートになっていることを確認する。  
-対応する COM ポートの確認は[1.3 ボードの接続](#13-ボードの接続)を参照。
-![ポート選択画面](../images/S1_PortSelect.png)
-1. Thonnyのシェルに「>>>」が表示されていることを確認できれば完了。  
-
+対応する COM ポートの確認は[1.3 ボードの接続](#13-ボードの接続)を参照。  
+![ポート選択画面](../images/S1_PortSelect.png)  
+>確認：Thonnyのシェルに「>>>」が表示されていることを確認できれば完了。  
+![接続確認画面](../images/S1_ConnectCheck.png)  
 
 ### 2.2 通信設定(ポート、ボーレートなど)
 本節では、 Shrike-lite と PC 間の通信に使用する設定項目について説明する。  
