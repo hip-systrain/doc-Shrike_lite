@@ -15,52 +15,55 @@
 | IDE・ツール | Thonny 5.0.1 |
 | SDK・ライブラリ | Shrike MicroPython v1.26.0-preview |
 | 開発PCのOS | Windows 11 26H2 |
-| 最終検証日 | (2026/11/25) |
+| 最終検証日 | 2026/11/24 |
 
 ## 改版履歴
 
 | 版 | 日付 | 担当者 | 内容 |
 |---|---|---|---|
-| 0.1 | (2026/11/25) | 藤井 | 新規作成 |
+| 0.1 | 2026/11/24 | 藤井 | 新規作成 |
 
 ---
 
 ## 0. 概要
-本章では、本手順書の目的や対象となる開発環境、開発に必要な機材および前提知識について説明する。  
+本章では、この手順書でできること、手順書を進めるうえで必要な機材や前提知識、事前準備について記述する。。  
 ### 0.1 この手順書でできること
 <!-- 読者がこの手順書を最後まで進めると何ができるようになるかを書く -->
 本手順書は、初めて Shrike-lite を扱う人でも、記載された手順に従って開発環境を構築し、プログラムの作成・実行および基本的な動作確認を行うことができる手順書である。
 
 ### 0.2 必要な機材
-
+この節では、手順書を進めるうえで必要な機材について記述する。  
 | 品名 | 数量 | 備考 |
 |---|---|---|
 | Vicharak Shrike-lite | 1人1台 | 開発するボード |
-| USBケーブル(Type-C、データ通信対応) | 1人1本 | 給電・書込み・REPL |
-| ブレッドボード・ジャンパワイヤ | 1人1式 | ボタンの配線 |
-| タクトスイッチ | 1人1個 | 題材2・3・8で使用 |
+| USB ケーブル( Type-C 、データ通信対応) | 1人1本 | 給電・書込み・REPL |
+| ブレッドボード・ジャンパワイヤ | 1人1式 | タクトスイッチの配線 |
+| タクトスイッチ | 1人1個 | ボタン入力の動作確認に使用 |
 
 ### 0.3 前提知識・事前準備
 <!-- 既存の Git/GitHub 運用・Redmine 運用を参考に、前提とする知識と準備を書く -->
-
-#### マイコン
+この節では、手順書を進めるうえで必要な前提知識の単語と必要な事前準備について記述する。  
+#### 前提知識
+- マイコン  
 CPUやメモリ、入出力を1つにまとめた小型コンピュータ。  
-#### FPGA(エフピージーエー)
+- FPGA (エフピージーエー)  
 内部の論理回路をユーザーが設計・変更できる集積回路である。
-#### Shrike-lite(シュライクライト)
+- Shrike-lite (シュライクライト)  
 RP2040マイコンとFPGAを搭載した小型の開発ボード。  
 マイコンによるソフトウェア制御とFPGAによるハードウェア制御の両方を利用できることが特徴。  
-#### MicroPython（マイクロパイソン）
+- MicroPython（マイクロパイソン）  
 マイコンなどの組み込み機器向けに開発されたPythonの実装。本手順書では、Shrike-lite上でプログラムを実行するために使用する。  
-#### REPL（レプル）
+- REPL (レプル)  
 Read-Eval-Print Loop の略称。入力したコマンドを読み込み、実行し、その結果を表示する処理を繰り返す対話型の実行環境。  
-#### Verilog（ベリログ）
+- Verilog (ベリログ)  
 FPGAなどのデジタル回路を設計するために使用するハードウェア記述言語。  
+#### 事前準備
+[0.2 必要な機材](#02-必要な機材)に記述されている機材を準備すること。
 
 ## 1. 開発環境構築
 本章では、 Shrike-lite を使用した開発を行うために必要なツール、ドライバのインストール、インストールできたことの確認について説明する  
 ### 1.1 ツールのインストール
-本節では、Shrike-liteでMicroPythonのプログラムを作成・編集・実行するための開発環境として、Thonnyのインストール手順を説明する。  
+本節では、 Shrike-lite で MicroPython のプログラムを作成・編集・実行するための開発環境として、 Thonny のインストール手順を説明する。  
 #### Thonny のインストール
 1. 下記リンクより、Thonny にアクセスする。  
 [Thonny 公式サイト](https://thonny.org/)   
@@ -68,7 +71,7 @@ FPGAなどのデジタル回路を設計するために使用するハードウ�
 ![ダウンロード画面](../images/S1_DownLoad.png)  
 1. **thonny-5.0.1-x64.exe** を選択し、インストーラーをダウンロードする。  
 ![ダウンロード選択画面](../images/S1_DownLoadSelect.png)  
-1. エクスプローラーのダウンロードからダウンロードしたインストーラーをダブルクリックする。  
+1. エクスプローラーのダウンロードからダウンロードした **thonny-5.0.1-x64.exe** をダブルクリックする。  
 ![インストーラー画面](../images/S1_Install.png)  
 1. 「Select Setup Install Mode」画面が開かれ、 **Install for me only (recommended)** をクリックする。  
 ![インストール設定画面](../images/S1_InstallSet.png)  
@@ -78,19 +81,18 @@ FPGAなどのデジタル回路を設計するために使用するハードウ�
 ![ライセンス許諾画面](../images/S1_LicenseAgreement.png)  
 1. **Next** をクリックする。  
 ![ライセンスネクストクリック画面](../images/S1_LicenseAgreementNext.png)  
-1. 「Select Destination Location」画面が開かれ、**Next** をクリックする。  
+1. 「Select Destination Location」画面が開かれるので、**Next** をクリックする。  
 ![フォルダ場所ネクストクリック画面](../images/S1_SelectDestinationLocation.png)  
-1. 「Select Start Menu Folder」画面が開かれ、**Next** をクリックする。  
+1. 「Select Start Menu Folder」画面が開かれるので、**Next** をクリックする。  
 ![スタートアップネクストクリック画面](../images/S1_SelectStartupMenuFolder.png)  
-1. 「Select Additional Tasks」画面が開かれ、**Create a desktop icon** をクリックする。  
+1. 「Select Additional Tasks」画面が開かれるので、**Create a desktop icon** をクリックする。  
 ![ショートカット作成画面](../images/S1_SelectAdditionalTasks.png)  
 1. **Next** をクリックする。  
 ![ショートカットネクストクリック画面](../images/S1_SelectAdditionalTasksNext.png)  
-1. 「Ready to Install」画面が開かれ、**Install** をクリックする。  
+1. 「Ready to Install」画面が開かれるので、**Install** をクリックする。  
 ![インストールクリック画面](../images/S1_ReadytoInstall.png)  
-    > 確認：Great success! と表示されれば、Thonny のインストールは成功。  
+    > 確認：Great success! と表示されると、Thonny のインストールは成功。  
     ![インストール完了画面](../images/S1_Greatsucces!.png)  
-
 
 ### 1.2 ドライバのインストール
 本節ではボードで必要なドライバのインストールについて記載する。  
@@ -99,6 +101,7 @@ FPGAなどのデジタル回路を設計するために使用するハードウ�
 ### 1.3 インストールできたことの確認
 本節では、Thonnyのインストール状態を確認した後、Thonnyの初期設定、Shrike-liteの接続確認およびMicroPythonファームウェアの書き込みを行い、開発環境が正常に動作することを確認する。  
 #### Thonny のインストール確認
+コントロールパネルを使用して、 Thonny が正常にインストールされているか確認する方法について説明する。
 1. コントロールパネルを開く。  
 ![コントロールパネル画面](../images/S1_ControlPanel.png)  
 1. **表示方法**をクリックする。  
@@ -117,9 +120,9 @@ FPGAなどのデジタル回路を設計するために使用するハードウ�
 ![初期言語設定画面](../images/S1_ThonnyLanguage.png)  
 1. 「InitialSetting」 を **Standard** にする。  
 ![初期設定画面](../images/S1_ThonnyInitialSetting.png)  
-1. 「Let'sGo」 をクリックする。  
-![Let'tGoクリック画面](../images/S1_ThonnyLetsGo.png)  
-    > Thonny の上部メニューが日本語で表示されていれば、言語設定は成功。  
+1. 「Let's go!」 をクリックする。  
+![Let'sgo!クリック画面](../images/S1_ThonnyLetsGo.png)  
+    >確認：Thonny の上部メニューが日本語で表示されていれば、言語設定は成功。  
     ![設定確認画面](../images/S1_LanguageSetting.png)  
 
 #### ボードの接続確認
@@ -135,9 +138,10 @@ FPGAなどのデジタル回路を設計するために使用するハードウ�
     > 確認：Shrike-lite に対応する COM ポートが表示されていれば、PC がボードを正常に認識している。  
 
 #### Shrike 専用 MicroPython の書き込み
-Shrike-lite で MicroPython のプログラムを実行するために必要な、 Shrike-liteにMicroPythonファームウェアを書き込む。  
+Shrike-lite で MicroPython のプログラムを実行するために必要な MicroPython のファームウェアを書き込む。  
 なお、2026年11月18日時点の最新版である **Shrike MicroPython Firmware v1.0.0** を使用して説明する。  
 1. Shrike_lite の **BOOTボタン** を押しながらPCにUSB接続を行う。  
+![BOOTボタン画像](../images/S1_BOOTButton.png)  
 1. PC に **RPI-RP2** のドライブが表示される。  
 ![RPI-RP2ドライブ画面](../images/S1_ExplorerRPIRP2.png)  
 1. 次のリンクから **Shrike 公式 GitHub** の Releases ページ にアクセスする。  
@@ -146,13 +150,13 @@ Shrike-lite で MicroPython のプログラムを実行するために必要な�
 ![ShrkeMicroPythonダウンロード画面](../images/S1_ShrikeMicroPythonDownLoad.png)  
 1. ダウンロードした Shrike-lite-micropython.uf2 を **RPI-RP2** にコピーする。  
 ![RPI-RP2コピー画面](../images/S1_MicroPythonCoppy.png)  
-注意：コピーが完了すると、RPI-RP2 のドライブが自動的に切断されるため、エクスプローラーが閉じられるのは正常な動作である。
+>注意：コピーが完了すると、RPI-RP2 のドライブが自動的に切断され、エクスプローラーが閉じられるのは正常な動作のため、再接続する必要はなし。
 1. Thonny を起動する。  
 1. 上部のタブから**ツール**をクリックする。  
 ![ツールクリック画面](../images/S1_ThonnyTool.png)  
 1. 開かれた項目から**オプション**をクリックする。  
 ![オプションクリック画面](../images/S1_ThonnyOption.png)  
-1. Thonnyオプションの**インタプリタ**をクリックする。  
+1. Thonny オプションの**インタプリタ**をクリックする。  
 ![インタプリタクリック画面](../images/S1_ThonnyInterpreter.png)  
 1. 「どのインタプリタを使用してコードを実行しますか？」を **MicroPython(RP2040)** を選択する。  
 ![インタプリタ選択画面](../images/S1_OptionSelectCode.png)  
@@ -177,7 +181,8 @@ Shrike-lite で MicroPython のプログラムを実行するために必要な�
     ![書き込み確認画面](../images/S1_ShrikeOK.png)  
 
 ## 2. シリアルターミナルの使い方
-本章では、Thonnyのシェルを使用して、Shrike-lite の REPL (対話型実行環境)を操作する方法について説明する。 REPL を利用することで、 PC から Shrike-lite に Python コマンドを送信し、その実行結果をリアルタイムに確認することができる。  
+本章では、 Thonny のシェルを使用して、Shrike-lite の REPL (対話型実行環境)を操作する方法について説明する。  
+REPL を利用することで、 PC から Shrike-lite に Python コマンドを送信し、その実行結果をリアルタイムに確認することができる。  
 ### 2.1 使用するツールと接続方法
 本節では、 REPL を使用するために必要なツールと、 Shrike-lite と PC の接続方法について説明する。  
 | 使用するツール | 接続方法 |
@@ -185,18 +190,18 @@ Shrike-lite で MicroPython のプログラムを実行するために必要な�
 | Thonny | USB接続 |
 
 #### 接続手順
-1. Shrike-liteとPCをUSBケーブルで接続する。  
-1. Thonnyを起動する。  
+1. Shrike-lite と PC を USB ケーブルで接続する。  
+1. Thonny を起動する。  
 1. 上部のタブから**ツール**をクリックする。  
 ![ツールクリック画面](../images/S1_ThonnyTool.png)  
 1. 開かれた項目から**オプション**をクリックする。  
 ![オプションクリック画面](../images/S1_ThonnyOption.png)  
 1. Thonny オプションの**インタプリタ**をクリックする。  
 ![インタプリタクリック画面](../images/S1_ThonnyInterpreter.png)  
-1. Thonnyのインタプリタが「MicroPython (RP2040)」に設定されていることを確認する。  
+1. Thonny のインタプリタが「 MicroPython (RP2040) 」に設定されていることを確認する。  
 ![インタプリタ選択画面](../images/S1_OptionSelectCode.png)  
 1. 接続先のポートが　Shrike-lite　に対応する COM ポートになっていることを確認する。  
-対応する COM ポートの確認は[1.4 ボードの接続](#14-ボードの接続)を参照。  
+対応する COM ポートの確認は[1.3 インストールできたことの確認](#13-インストールできたことの確認)のボードの接続確認を参照。  
 ![ポート選択画面](../images/S1_PortSelect.png)  
 >確認：Thonny のシェルに「>>>」が表示されていれば、Shrike-lite との接続は成功。  
 ![接続確認画面](../images/S1_ConnectCheck.png)  
