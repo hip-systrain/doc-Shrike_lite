@@ -91,104 +91,55 @@
 - 
 
 ## 9. FPGAの開発環境とプロジェクト作成
-　本章では、 Shrike-lite に内蔵されている FPGA を開発する環境を構築する手順と、 Shrike-lite のピン割り当て、 FPGA に関する基礎知識について説明する。
+　本章では Shrike-lite に内蔵されている FPGA に関する基礎知識や FPGA の開発環境の構築手順、Shrike-lite のピン割り当てについて説明する。
 
 ### 9.1 FPGAの基礎
 - 概要
   
-  　FPGA(Field Programmable Gate Array) は使用目的に合わせて内部の電子回路を自由に構成できる半導体である。通常の集積回路（IC）は製造時点で内部の回路構成や機能が決まっている。しかし FPGA はユーザーが設計した回路情報を書き込むことで、内部の論理回路の構成を変更できる。
+  　FPGA (Field Programmable Gate Array) はユーザーが目的に応じて内部の論理回路を自由に設計・変更できる半導体デバイスである。一般的なCPUやマイコンは製造時点で内部の回路構成や機能が決まっている。しかし FPGA はユーザーが設計した論理回路を書きこむことで、用途に合わせた専用のハードウェアを構成できる。
 
 - 特徴
-  - 再構成可能な論理回路
-  - 並列処理が得意
+  - 用途に合わせて論理回路を構成できる
+  - 並列処理能力に長けており複数の回路を同時に動作させられる
   - 回路構成を編集することで機能を変更できる
   - Verilog や VHDL などのハードウェア記述言語を用いて開発する
 
 - 内部構造
 
-  FPGA の内部には多数の小さなロジックブロックや配線が並んでいる。
+  　FPGA の内部には多数の「ロジックブロック」という小さなブロックや配線が並んでいる。下図は FPGA の基本的な内部構造を簡略化したものであり、センサーやスイッチなどの外部入力を受けてから制御信号や LED として外部出力するまでの流れを付け加えている。
+  ![FPGA内部構造](../images/S2_FPGA内部構造.png)
+  - ロジックブロック
 
-  ```mermaid
-  flowchart TB
-    IN["外部入力<br/>センサー・スイッチ"]
+  　FPGA内部で回路を構成するための基本単位。ロジックブロックの内部には LUT やフリップフロップが配置されており、これらを組み合わせることで多様な論理回路を実現できる。
 
-    subgraph FPGA["FPGA"]
-        direction TB
-
-        subgraph COL1["入力列"]
-            direction TB
-            IN1["IOB<br/>入力ブロック"]
-            IN2["IOB<br/>入力ブロック"]
-            IN3["IOB<br/>入力ブロック"]
-        end
-
-        subgraph COL2["論理回路列"]
-            direction TB
-            C["LUT"]
-            D["LUT"]
-            E["LUT"]
-            F["LUT"]
-            G["LUT"]
-            H["LUT"]
-            I["LUT"]
-            J["LUT"]
-            K["LUT"]
-        end
-
-        subgraph COL3["出力列"]
-            direction TB
-            OUT1["IOB<br/>出力ブロック"]
-            OUT2["IOB<br/>出力ブロック"]
-            OUT3["IOB<br/>出力ブロック"]
-        end
-
-        IN1 --> C
-        IN2 --> D
-        IN3 --> E
-        C --> F
-        D --> G
-        E --> H
-        F --> I
-        G --> J
-        H --> K
-        I --> OUT1
-        J --> OUT2
-        K --> OUT3
-    end
-
-    OUT["外部出力<br/>制御信号・LED"]
-
-    IN --> IN1
-    IN --> IN2
-    IN --> IN3
-    OUT1 --> OUT
-    OUT2 --> OUT
-    OUT3 --> OUT
-
-    style FPGA fill:#f8fafc,stroke:#64748b,color:#111
-    style COL1 fill:#e3f2fd,stroke:#2563eb,color:#111
-    style COL2 fill:#fff8e1,stroke:#d69e00,color:#111
-    style COL3 fill:#e3f2fd,stroke:#2563eb,color:#111
-    style IN1 fill:#bfdbfe,stroke:#2563eb,color:#111
-    style IN2 fill:#bfdbfe,stroke:#2563eb,color:#111
-    style IN3 fill:#bfdbfe,stroke:#2563eb,color:#111
-    style OUT1 fill:#bfdbfe,stroke:#2563eb,color:#111
-    style OUT2 fill:#bfdbfe,stroke:#2563eb,color:#111
-    style OUT3 fill:#bfdbfe,stroke:#2563eb,color:#111
-    style C fill:#fde68a,stroke:#d69e00,color:#111
-    style D fill:#fde68a,stroke:#d69e00,color:#111
-    style E fill:#fde68a,stroke:#d69e00,color:#111
-    style F fill:#fde68a,stroke:#d69e00,color:#111
-    style G fill:#fde68a,stroke:#d69e00,color:#111
-    style H fill:#fde68a,stroke:#d69e00,color:#111
-    style I fill:#fde68a,stroke:#d69e00,color:#111
-    style J fill:#fde68a,stroke:#d69e00,color:#111
-    style K fill:#fde68a,stroke:#d69e00,color:#111
-  ```
-
-  - LUT
   - 配線
-  - 入出力ブロック
+
+  　ロジックブロックやその他の回路を接続して必要な信号をやり取りできるようにする。FPGA 内部の配線を変更することで、目的に応じた回路を構成できる。
+
+  - 入出力ブロック（I/O Block）
+
+  　外部のセンサーや LED などと信号をやり取りする窓口。
+
+  - LUT（ルックアップテーブル）
+
+  　入力の組み合わせに対して事前に設定された1ビットの値を出力する「真理値表」のようなメモリ。
+  
+  　例えば２つの入力 A,B がある場合、それぞれの値が0か1かで4通りの組み合わせ（00, 01, 10, 11）になる。LUT は、この4通りの入力の組み合わせに対してそれぞれの出力を設定することができる。下の表の場合、LUT は「A と B の値が異なる時に出力が1になる」という XOR（排他的論理和）のような論理を持つ。
+
+    | 入力A | 入力B | 出力 |
+    |---|---|---|
+    | 0 | 0 | 0 |
+    | 0 | 1 | 1 |
+    | 1 | 0 | 1 |
+    | 1 | 1 | 0 |
+
+  　このような組み合わせを予め設定することで、LUT は FPGA の柔軟かつ高速な並列処理を支えている。
+
+  - フリップフロップ
+
+  　1ビットのデジタル信号を記憶できる回路。これにより、回路の中で「状態」の保存が可能になり、一定周期で送られる信号（クロック信号）に同期してデータを保持したり更新することができる。
+
+    - フリップフロップ例（D フリップフロップ）
 
 
 ### 9.2 Shrike-liteのピン割り当て
