@@ -70,13 +70,16 @@
 ## 5. コーディング・ビルド・書込み(FreeRTOS)
 本ボードでは、標準の Shrike MicroPython 環境を使用するため、FreeRTOS を利用した開発は行わない。  
 そのため、本章に記載する FreeRTOS の導入・設定および題材の実施は対象外とする。  
-### 5.1 FreeRTOSの導入・設定
-### 5.2 題材5:複数タスク
-### 5.3 題材6:タスク間通信
+### 5.1 FreeRTOSの導入・設定  
+本ボードでは、FreeRTOS を使用せず、MicroPython の実行環境を使用するため、本節では実施しない。  
+### 5.2 題材5:複数タスク  
+本ボードでは、FreeRTOS のタスク機能を使用したプログラム開発を行わないため、本節では実施しない。  
+### 5.3 題材6:タスク間通信  
+本ボードでは、FreeRTOS のタスク間通信機能を使用しないため、本節では実施しない。  
 
 ## 6. デバッグ
-本章ではShrike-liteでのデバッグ手法について説明する。  
-なお、Shrike-lite では標準的な IDE に搭載されているブレークポイントやステップ実行といったコード上での確認は行うことは出来ない(但し、 Shrike-lite の機能を用いないPython単体の実行確認は可能)。  
+本章では Shrike-lite でのデバッグ手法について説明する。  
+なお、Shrike-lite では標準的な IDE に搭載されているブレークポイントやステップ実行といったコード上での確認は行うことは出来ない(但し、 Shrike-lite の機能を用いない Python 単体の実行確認は可能)。  
 マイコン側と FPGA 側ではデバッグ手法が異なるので分けて説明する。  
 ### 6.1 デバッガの接続(配線図・写真)
 Shrike-lite では ICE などのデバッグ用の機器は使用しない。それぞれ以下のツールを用いてデバッグを行う。  
@@ -84,7 +87,7 @@ Shrike-lite では ICE などのデバッグ用の機器は使用しない。そ
 Thonny を用いたスクリプト実行や値確認を行う。
 #### FPGA側
 Go Configure Software Hub を用いてのテストベンチによるシミュレーションの実行結果を確認する。  
-尚、Go Configure Software Hub のインストール手順や詳しい使用方法については9章以降に記載する。
+なお、Go Configure Software Hub のインストール手順や詳しい使用方法については9章以降に記載する。  
 ### 6.2 デバッグの開始
 #### マイコン側 Thonnyから実行
 1. Thonny を起動し Shrike-lite と PC を接続する。  
@@ -96,7 +99,7 @@ Go Configure Software Hub を用いてのテストベンチによるシミュレ
 停止した際にシェル画面には実行中だった行番号が表示される。  
 ![実行停止](../images/S3_ScriptStop.png)  
     >注意1：Ctrl キー + C キーでスクリプトを中断した場合、停止した位置から処理を再開することはできない。再実行する場合は、スクリプトを最初から実行する。  
-    >注意2：ツールバーの赤い STOP ボタン **バックエンドをストップ/リスタート** の押下で停止させると実行中の内部変数の状態も消去されるため停止は**Ctrl キー + C キー**を押下する。  
+    >注意2：ツールバーの赤い STOP ボタン**バックエンドをストップ/リスタート**の押下で停止させると実行中の内部変数の状態も消去されるため停止は**Ctrl キー + C キー**を押下する。  
     ![実行停止](../images/S3_ScriptStopNG.png)  
 
 1. スクリプト実行の際にコードが正しくない場合はスクリプトは停止し異常が見つかった箇所の行番号が表示される。  
@@ -104,16 +107,16 @@ Go Configure Software Hub を用いてのテストベンチによるシミュレ
 >注意：エラーの行番号はあくまで目安の位置となる。異常個所を探す際には前後の行も含めて確認する。
 
 #### マイコン側 REPLから実行
-実行したいスクリプトファイルが Shrike-lite 上にある場合はREPLからの命令でスクリプトを実行出来る。  
+実行したいスクリプトファイルが Shrike-lite 上にある場合は REPL からの命令でスクリプトを実行出来る。  
 1. REPL から実行したいスクリプトを以下の様に入力すると実行される。(対象ファイルが”test1.py”の場合)  
     ```python
     import test1
     ```  
     ![REPL実行](../images/S3_ScriptRunREPL.png)  
     >注意：ファイル拡張子(.py)は付けない。
-1. 停止する場合は**Ctrl キー + C キー**を押下する。  
+1. 停止する場合は **Ctrl キー + C キー**を押下する。  
 #### FPGA側 シミュレーション実行
-1. Verilog コード(画像ではmain.v)とテストベンチコード(画像ではchip_tb.vt)を作成し、Go Configure Software Hub の ForgeFPGA Workshopからツールバーの Simulation → **Run RTL Simulation** 押下する。  
+1. Verilog コード(画像では main.v )とテストベンチコード(画像では chip_tb.vt )を作成し、Go Configure Software Hub の ForgeFPGA Workshop からツールバーの Simulation → **Run RTL Simulation** 押下する。  
 ![シミュレーション実行](../images/S3_FPGASimRun.png)  
 1. テストベンチの選択画面が出るので実行したいテストベンチを選択し **Simulate** を押下する。  
 ![テストベンチ選択](../images/S3_SelectTB.png)  
@@ -142,7 +145,7 @@ Python コード内で使用する変数やポートの確認方法について�
 ![値の確認](../images/S3_CheckNum.png)  
 - 変数に文字列が入っている場合は文字コードの値が表示される。文字列を確認したい場合は print() 関数を用いる。  
 ![文字列の確認](../images/S3_CheckWord.png)  
-- Pin の入出力設定の確認は以下を入力する。（ Pin4 の場合）  
+- Pin の入出力設定の確認は以下を入力する。( Pin4 の場合)  
      ```python
     from machine import Pin
     Pin(4)
@@ -200,56 +203,57 @@ Shrike-lite ではマイコン側の GPIO14,15 と FPGA 側の GPIO18,17 は信�
 
 
 #### FPGA側
-1. 0.5秒周期でLEDを点滅させる  
-1. マイコンからの入力信号の立ち上がり(0→1)を検知する  
-1. 立ち上がりを検知するごとに速度の段階を1段ずつ上げていく(初期値0、0~6の7段階)  
+1. 0.5 秒周期で LED を点滅させる  
+1. マイコンからの入力信号の立ち上がり (0→1) を検知する  
+1. 立ち上がりを検知するごとに速度の段階を1段ずつ上げていく(初期値 0 、 0~6 の 7 段階)  
 1. 速度の段階が6を超えた場合は0に戻る  
-1. 段階が上がる毎にLEDの点滅周期を1/2にする(点滅速度を速くする：1倍,2倍,4倍,8倍,16倍,32倍,64倍)  
+1. 段階が上がる毎にLEDの点滅周期を1/2にする(点滅速度を速くする： 1 倍, 2 倍, 4 倍, 8 倍, 16 倍, 32 倍, 64 倍)  
 
 使用Pin  
 - GPIO17  IN  マイコンからの入力信号  
 - GPIO6   Out LEDへの出力  
 
 実施手順は以下となる。  
-1. Shrike-lite をPCにUSB接続する。  
+1. Shrike-lite を PC に USB 接続する。  
 1. Thonny を起動する。  
-1. Thonny 左側の「ファイル」パネルから、Shrike-lite 側のファイル一覧を開く。  
-1. 一覧から **main.py** を探す。  
-1. **main.py** をダブルクリックして開く。  
-1. 次に記載するプログラムを main.pyに記述する。  
-    ```
+1. 3.1 新規プロジェクトの作成を参照し、ファイル名を main.py として新規作成する。  
+1. 一覧から main.py を探す。
+1. 作成した main.py に、次に記載するプログラムを記述する。  
+    ```python 
     import shrike
     from machine import Pin
     import time
 
-    Pin(6,Pin.IN,Pin.PULL_UP) #　ボタン入力設定
-    Pin(15,Pin.OUT) # FPGA側への信号
+    button = Pin(6,Pin.IN,Pin.PULL_UP) #　ボタン入力設定
+    fpga = Pin(15,Pin.OUT) # FPGA側への信号
 
     last = 0
     logh = 0
     logl = 0
 
     while True:
-        if Pin(6).value() == 1: # ボタン押されていない
+        if button.value() == 1: # ボタン押されていない
             logl = 0
             if last == 1: # 現在押し確定
                 logh = logh + 1
                 if logh > 10: # 10回連続離されている
                     last = 0 # 離し確定
-                    Pin(15).off() #FPGAへOFFを出力
+                    fpga.off() #FPGAへOFFを出力
                     time.sleep_ms(10)
                     
-        elif Pin(6).value() == 0: # ボタン押されている
+        else: # ボタン押されている
             logh = 0
             if last == 0: # 現在離し確定
                 logl = logl + 1
                 if logl > 10: # 10回連続押されている
                     last = 1 # 押し確定
-                    Pin(15).on() #FPGAへONを出力
+                    fpga.on() #FPGAへONを出力
                     time.sleep_ms(10)
     ```  
-1. 次に記載するプログラムを Verilog のmain.vに記述する。  
-    ```
+1. 作成した main.py を Shrike-lite のボード上に保存する。 
+   保存方法は[3.1 新規プロジェクトの作成](#31-新規プロジェクトの作成)を参照する。　　
+1. 次に記載するプログラムを Verilog の main.v に記述する。  
+    ```verilog
     (* top *) module main #(
         parameter MAX_COUNT = 50_000_000 //点滅速度基準値
       )(
